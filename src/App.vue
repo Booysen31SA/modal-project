@@ -1,15 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link :to="{ name: 'About'}">About</router-link> |
+    <router-link :to="{ name: 'Jobs'}">Jobs</router-link>
+  </div>
+
+  <button @click="redirect">Redirect</button>
+  <button @click="back">Go Back</button>
+  <button @click="forward">Go Forward</button>
+
+  <router-view />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import './assets/styles/global.css'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  methods: {
+    redirect() {
+      this.$router.push({ name: 'Home' })
+    },
+    back() {
+      this.$router.go(-1)
+    },
+    forward() {
+      this.$router.forward(1)
+    }
   }
 }
 </script>
@@ -22,5 +39,20 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#nav{
+  padding: 30px;
+}
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+}
+#nav a.router-link-exact-active{
+  color: white;
+  background: crimson;
 }
 </style>
